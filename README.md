@@ -70,5 +70,4 @@ ritesh-store/
 }
 ```
 
-## Real payments (Razorpay)
-Razorpay integrate karne ke liye batao — main CartPanel mein add kar dunga.
+PayU test integration
