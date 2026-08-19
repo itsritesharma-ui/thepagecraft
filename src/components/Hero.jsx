@@ -1,12 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
+<<<<<<< HEAD
 import { products } from '../data/products'
 import styles from './Hero.module.css'
 
 const BOOKS = products
+=======
+import { useContent } from '../context/ContentContext'
+import styles from './Hero.module.css'
+
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
 const AUTOPLAY_MS = 4200
 const TRANSITION_MS = 420
 
 export default function Hero({ onNavigate }) {
+<<<<<<< HEAD
+=======
+  const { products: BOOKS } = useContent()
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
   const heroRef = useRef(null)
   const timerRef = useRef(null)
   const transitionRef = useRef(null)
@@ -16,6 +26,13 @@ export default function Hero({ onNavigate }) {
   const [activeIdx, setActiveIdx] = useState(0)
   const [animDir, setAnimDir] = useState('in')
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    if (BOOKS.length && activeIdx >= BOOKS.length) setActiveIdx(0)
+  }, [BOOKS.length, activeIdx])
+
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
   const goTo = (nextIdx) => {
     if (nextIdx === activeIdx) return
     setAnimDir('out')
@@ -72,7 +89,12 @@ export default function Hero({ onNavigate }) {
     return () => el.removeEventListener('mousemove', handleMouse)
   }, [])
 
+<<<<<<< HEAD
   const book = BOOKS[activeIdx]
+=======
+  const book = BOOKS[activeIdx] || BOOKS[0]
+  if (!book) return null
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
 
   return (
     <section className={styles.hero} ref={heroRef}>

@@ -9,6 +9,11 @@ import HomePage from './pages/HomePage'
 import EbooksPage from './pages/EbooksPage'
 import BookDetailPage from './pages/BookDetailPage'
 import BookReaderPage from './pages/BookReaderPage'
+<<<<<<< HEAD
+=======
+import DailyPostPage from './pages/DailyPostPage'
+import { useContent } from './context/ContentContext'
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
 import AnimatedBackground from './components/AnimatedBackground'
 import PageTransition from './components/PageTransition'
 import MyBooksPage from './pages/MyBooksPage'
@@ -23,13 +28,30 @@ function getPage() {
     if (path.startsWith('/ebooks')) return 'ebooks'
     if (path.startsWith('/contact')) return 'contact'
     if (path.startsWith('/read/')) return 'reader'
+<<<<<<< HEAD
+=======
+    if (path.startsWith('/post/')) return 'daily-post'
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
     if (path.startsWith('/payment-success')) return 'payment-success'
     if (path.startsWith('/payment-failed')) return 'payment-failed'
   }
   return 'home'
 }
 
+<<<<<<< HEAD
 export default function App() {
+=======
+function getInitialPostSlug() {
+  if (typeof window !== 'undefined') {
+    const match = window.location.pathname.match(/^\/post\/([^/]+)/)
+    if (match) return match[1]
+  }
+  return null
+}
+
+export default function App() {
+  const { posts } = useContent()
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
   const [cart, setCart] = useState([])
   const [cartOpen, setCartOpen] = useState(false)
   const [authOpen, setAuthOpen] = useState(false)
@@ -39,6 +61,11 @@ export default function App() {
   const [page, setPage] = useState(getPage())
   const [readerBookId, setReaderBookId] = useState(null)
   const [selectedBook, setSelectedBook] = useState(null)
+<<<<<<< HEAD
+=======
+  const [selectedPost, setSelectedPost] = useState(null)
+  const [selectedPostSlug, setSelectedPostSlug] = useState(getInitialPostSlug)
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -54,17 +81,41 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+<<<<<<< HEAD
     const handlePopState = () => { setPage(getPage()); setSelectedBook(null) }
+=======
+    const handlePopState = () => {
+      setPage(getPage())
+      setSelectedBook(null)
+      setSelectedPostSlug(getInitialPostSlug())
+    }
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    if (!selectedPostSlug) {
+      setSelectedPost(null)
+      return
+    }
+    setSelectedPost(posts.find(post => post.slug === selectedPostSlug) || null)
+  }, [posts, selectedPostSlug])
+
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
   const navigate = (to) => {
     window.history.pushState({}, '', to)
     if (to.startsWith('/ebooks')) setPage('ebooks')
     else if (to.startsWith('/contact')) setPage('contact')
     else setPage('home')
     setSelectedBook(null)
+<<<<<<< HEAD
+=======
+    setSelectedPost(null)
+    setSelectedPostSlug(null)
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
     const hashIdx = to.indexOf('#')
     if (hashIdx !== -1) {
       const id = to.slice(hashIdx + 1)
@@ -87,6 +138,11 @@ export default function App() {
   const closeReader = () => navigate('/ebooks')
 
   const openBookDetail = (book) => {
+<<<<<<< HEAD
+=======
+    setSelectedPost(null)
+    setSelectedPostSlug(null)
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
     setSelectedBook(book)
     window.history.pushState({}, '', `/ebooks/${book.id}`)
     window.scrollTo(0, 0)
@@ -97,6 +153,24 @@ export default function App() {
     window.scrollTo(0, 0)
   }
 
+<<<<<<< HEAD
+=======
+  const openPost = (post) => {
+    setSelectedBook(null)
+    setSelectedPostSlug(post.slug)
+    setSelectedPost(post)
+    window.history.pushState({}, '', `/post/${post.slug}`)
+    window.scrollTo(0, 0)
+  }
+  const closePost = () => {
+    setSelectedPost(null)
+    setSelectedPostSlug(null)
+    window.history.pushState({}, '', '/')
+    setPage('home')
+    window.scrollTo(0, 0)
+  }
+
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
   const addToCart = (product) => setCart(prev => prev.find(i => i.id === product.id) ? prev : [...prev, product])
   const removeFromCart = (id) => setCart(prev => prev.filter(i => i.id !== id))
 
@@ -113,7 +187,11 @@ export default function App() {
     )
   }
 
+<<<<<<< HEAD
   const pageKey = selectedBook ? `book-${selectedBook.id}` : page
+=======
+  const pageKey = selectedBook ? `book-${selectedBook.id}` : selectedPost ? `post-${selectedPost.slug}` : page
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
 
   return (
     <div className={styles.app}>
@@ -133,8 +211,13 @@ export default function App() {
 
         <main>
           <PageTransition pageKey={pageKey}>
+<<<<<<< HEAD
             {page === 'home' && !selectedBook && <HomePage onAuthOpen={() => setAuthOpen(true)} user={user} onNavigate={navigate} />}
             {page === 'ebooks' && !selectedBook && (
+=======
+            {page === 'home' && !selectedBook && !selectedPost && <HomePage onAuthOpen={() => setAuthOpen(true)} user={user} onNavigate={navigate} onOpenPost={openPost} />}
+            {page === 'ebooks' && !selectedBook && !selectedPost && (
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
               <EbooksPage
                 cart={cart}
                 onAdd={addToCart}
@@ -143,7 +226,11 @@ export default function App() {
                 onSelectBook={openBookDetail}
               />
             )}
+<<<<<<< HEAD
             {page === 'contact' && !selectedBook && <ContactPage />}
+=======
+            {page === 'contact' && !selectedBook && !selectedPost && <ContactPage />}
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
             {page === 'payment-success' && (
   <div style={{
     minHeight: '70vh',
@@ -156,7 +243,11 @@ export default function App() {
     <div>
       <h1>Payment Successful ✓</h1>
       <p>Your payment has been received successfully.</p>
+<<<<<<< HEAD
       <button onClick={() => navigate('ebooks')}>
+=======
+      <button onClick={() => navigate('/ebooks')}>
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
         Back to eBooks
       </button>
     </div>
@@ -175,7 +266,11 @@ export default function App() {
     <div>
       <h1>Payment Failed</h1>
       <p>Your payment could not be completed. No order has been confirmed.</p>
+<<<<<<< HEAD
       <button onClick={() => navigate('ebooks')}>
+=======
+      <button onClick={() => navigate('/ebooks')}>
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
         Try Again
       </button>
     </div>
@@ -191,6 +286,12 @@ export default function App() {
                 onAuthOpen={() => setAuthOpen(true)}
               />
             )}
+<<<<<<< HEAD
+=======
+            {selectedPost && (
+              <DailyPostPage post={selectedPost} onBack={closePost} />
+            )}
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
           </PageTransition>
         </main>
 

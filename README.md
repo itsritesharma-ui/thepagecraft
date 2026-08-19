@@ -70,4 +70,9 @@ ritesh-store/
 }
 ```
 
+<<<<<<< HEAD
 PayU test integration
+=======
+## Real payments (Razorpay)
+Razorpay integrate karne ke liye batao — main CartPanel mein add kar dunga.
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)

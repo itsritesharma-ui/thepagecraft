@@ -1,6 +1,10 @@
 import { useRef, useEffect } from 'react'
 import Hero from '../components/Hero'
 import ImpactStats from '../components/ImpactStats'
+<<<<<<< HEAD
+=======
+import DailyPost from '../components/DailyPost'
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
 import styles from './HomePage.module.css'
 
 const JOURNEY = [
@@ -60,7 +64,11 @@ function JourneyEntry({ item, index }) {
   )
 }
 
+<<<<<<< HEAD
 export default function HomePage({ onAuthOpen, user, onNavigate }) {
+=======
+export default function HomePage({ onAuthOpen, user, onNavigate, onOpenPost }) {
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
   const aboutRef = useRef(null)
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -77,6 +85,11 @@ export default function HomePage({ onAuthOpen, user, onNavigate }) {
 
       <ImpactStats />
 
+<<<<<<< HEAD
+=======
+      <DailyPost onOpenPost={onOpenPost} />
+
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
       {/* ── Journey ──────────────────────────── */}
       <section className={styles.feed} id="thoughts">
         <div className={styles.feedLabel}>

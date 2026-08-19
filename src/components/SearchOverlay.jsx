@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
+<<<<<<< HEAD
 import { products } from '../data/products'
+=======
+import { useContent } from '../context/ContentContext'
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
 import styles from './SearchOverlay.module.css'
 
 const PAGES = [
@@ -25,6 +29,10 @@ function highlight(text, query) {
 }
 
 export default function SearchOverlay({ onNavigate, onSelectBook }) {
+<<<<<<< HEAD
+=======
+  const { products } = useContent()
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState(0)

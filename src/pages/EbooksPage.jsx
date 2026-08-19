@@ -1,9 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
+<<<<<<< HEAD
 import { products } from '../data/products'
 import styles from './EbooksPage.module.css'
 
 const CATEGORIES = ['All', ...new Set(products.map(p => p.category))]
 
+=======
+import { useContent } from '../context/ContentContext'
+import styles from './EbooksPage.module.css'
+
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
 const THOUGHTS_CONTENT = [
   {
     id: 1,
@@ -144,6 +150,11 @@ function ThoughtCard({ item, index }) {
 }
 
 export default function EbooksPage({ cart, onAdd, user, onAuthOpen, onSelectBook }) {
+<<<<<<< HEAD
+=======
+  const { products } = useContent()
+  const CATEGORIES = ['All', ...new Set(products.map(p => p.category))]
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
   const [active, setActive] = useState('All')
   const filtered = active === 'All' ? products : products.filter(p => p.category === active)
 
@@ -158,7 +169,11 @@ export default function EbooksPage({ cart, onAdd, user, onAuthOpen, onSelectBook
           <p className={styles.heroSub}>India's history, politics and nature — told with truth and passion.</p>
         </div>
         <div className={styles.heroStats}>
+<<<<<<< HEAD
           {[{ val: '3', label: 'Titles' }, { val: '5K+', label: 'Readers' }, { val: '4.9★', label: 'Avg Rating' }, { val: '🇮🇳', label: 'Made in India' }].map(s => (
+=======
+          {[{ val: String(products.length), label: 'Titles' }, { val: '5K+', label: 'Readers' }, { val: '4.9★', label: 'Avg Rating' }, { val: '🇮🇳', label: 'Made in India' }].map(s => (
+>>>>>>> d46de09 (Deploy CMS ready ThePageCraft)
             <div className={styles.heroStat} key={s.label}>
               <strong>{s.val}</strong><span>{s.label}</span>
             </div>
